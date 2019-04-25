@@ -1,0 +1,27 @@
+{
+  "name": "glowing-funicular",
+  "version": "1.0.0",
+  "engines": {
+    "node": "11.14.0"
+  },
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AppManNYC/glowing-funicular.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AppManNYC/glowing-funicular/issues"
+  },
+  "homepage": "https://github.com/AppManNYC/glowing-funicular#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.5.3"
+  }
+}
