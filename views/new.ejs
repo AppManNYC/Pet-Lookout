@@ -1,0 +1,53 @@
+<% include partials/boot %>
+
+<br><br><br>
+<h1 style="margin: auto 0; text-align: center"> Add A New Lost Pet</h1>
+
+<div class="center_div container">
+<form action="/lostPets" method="POST">
+    <div class="form-row col-md-offset-2">
+        <div class="col-md-6 mb-3">
+            <label for="validationDefault03">Address</label>
+            <input type="text" class="form-control" id="validationDefault03" placeholder="Address" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationDefault03">City</label>
+            <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationDefault04">State</label>
+            <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationDefault05">Zip</label>
+            <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="ImageUpload">Post Image</label>
+            <input type="file" class="form-control-file" id="ImageUpload" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="Description">Lost Pet Description</label>
+            <textarea class="form-control" id="Description" rows="3"></textarea>
+        </div>
+    </div>
+    <br><br>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+            <label class="form-check-label" for="invalidCheck2">
+                Agree to terms and conditions
+            </label>
+        </div>
+    </div>
+    <br><br><br>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+    <br><br><br><br><br><br>
+</div>
+
+<% include partials/footer %>

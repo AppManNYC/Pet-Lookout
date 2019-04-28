@@ -1,23 +1,17 @@
-//___________________
-//Dependencies
-//___________________
+// ------------- ##### Dependencies #####------------- //
 const express           =   require('express');
 const methodOverride    =   require('method-override');
 const mongoose          =   require ('mongoose');
 const app               =   express ();
 const db                =   mongoose.connection;
-const lostPets          =   require('./models/petSpotterDB.js');
+const PetSpotterDB          =   require('./models/petSpotterDB.js');
 
 
-//___________________
-//Port
-//___________________
+// ----------------- ##### Port #####----------------- //
 // Allow use of Heroku's port or your own local port, depending on the environment
 const PORT = process.env.PORT || 5000;
 
-// //___________________
-// //Database
-// //___________________
+// ----------------- ##### Database #####----------------- //
 // // How to connect to the database either via heroku or locally
 // const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/'+ `updateme`;
 //
@@ -31,10 +25,8 @@ const PORT = process.env.PORT || 5000;
 // // open the connection to mongo
 // db.on('open' , ()=>{});
 
-//___________________
-//Middleware
-//___________________
 
+// -------------- ##### Middleware #####-------------- //
 //use public folder for static assets
 app.use(express.static('public'));
 
@@ -46,21 +38,37 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 app.set("view engine", "ejs");
 
-//___________________
-// Routes
-//___________________
-//localhost:3000
+
+// -------------- ##### Routes #####-------------- //
+//localhost:5000
+
+// ---------- ##### GET Routes #####---------- //
+
 app.get('/' , (req, res) => {
     res.render("landing");
 });
 
 app.get("/lostPets", (req, res) => {
     res.render("index", {
-        lostPets: lostPets
+        lostPets: PetSpotterDB
     });
 });
 
-// ___________________
-// Listener
-// ___________________
+app.get("/lostPets/new", (req, res) => {
+    res.render("new");
+});
+
+// ---------- ##### POST Routes #####---------- //
+
+app.post("/lostPets", (req, res) => {
+    PetSpotterDB.create(req.body, (err) => {
+        res.redirect("/lostPets");
+    });
+});
+
+
+
+
+
+// -------------- ##### Listener #####-------------- //
 app.listen(PORT, () => console.log(`The Pet Spotter Server Is Operational On Port: ${PORT}`));
