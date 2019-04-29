@@ -2,7 +2,10 @@
 const   express     =       require("express"),
         app         =       express(),
         mongoose    =       require("mongoose"),
-        LostPets    =       require("./models/lostPet.js");
+        LostPet     =       require("./models/lostPet"),
+        Comment     =       require("./models/comment"),
+        seedDB      =       require("./seeds")
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -10,48 +13,30 @@ const PORT = process.env.PORT || 3000;
 // ---------- ##### Middleware #####---------- //
 
 // app.use( methodOverride("_method") );
-app.use( express.static("public") );
 app.use( express.urlencoded( {extended: true} ) );
+
+app.use(express.static(__dirname + "/public"));
+app.set('view engine', 'ejs');
+seedDB();
 
 
 // ---------- ##### GET Routes #####---------- //
 app.get('/' , (req, res) => {
-    res.render("landing.ejs");
-});
-
-app.get("/lostPets/:index", (req, res) => {
-    LostPets.findById( req.params.index, (err, foundLostPet) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.render("show.ejs", {
-                lostPet: foundLostPet
-            });
-        }
-    });
+    res.render("landing");
 });
 
 app.get("/lostPets", (req, res) => {
-    LostPets.find( {}, (err, lostPets) => {
+    LostPet.find( {}, (err, allLostPets) => {
         if(err){
             console.log(err);
         }else{
-            res.render("index.ejs", {
-                lostPets: lostPets
-            });
+            res.render("lostPets/index", {lostPets: allLostPets});
         }
     });
 });
 
-app.get("/lostPets/new", (req, res) => {
-    res.render("new.ejs");
-});
-
-
-// ---------- ##### POST Routes #####---------- //
-
 app.post("/lostPets", (req, res) => {
-    LostPets.create(req.body, (err) => {
+    LostPet.create(req.body, (err) => {
         if(err){
             console.log(err);
         } else {
@@ -60,6 +45,49 @@ app.post("/lostPets", (req, res) => {
     });
 });
 
+app.get("/lostPets/new", (req, res) => {
+    res.render("lostPets/new");
+});
+
+app.get("/lostPets/:id", (req, res) => {
+    LostPet.findById(req.params.id).populate("comments").exec( (err, foundLostPet) => {
+        if(err){
+            console.log(err);
+        } else {
+            console.log(foundLostPet);
+            res.render("lostPets/show", {lostPet: foundLostPet});
+        }
+    });
+});
+
+app.get("/lostPets/:id/comments/new", (req, res) => {
+    LostPet.findById(req.params.id, function(err, lostPet){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("comments/new", {lostPet: lostPet});
+        }
+    })
+});
+
+app.post("/lostPets/:id/comments", (req, res) => {
+    LostPet.findById(req.params.id, (err, lostPet) => {
+        if(err){
+            console.log(err);
+            res.redirect("/lostPets");
+        } else {
+            Comment.create(req.body.comment, (err, comment) => {
+                if(err){
+                    console.log(err);
+                } else {
+                    lostPet.comments.push(comment);
+                    lostPet.save();
+                    res.redirect('/lostPets/' + lostPet._id);
+                }
+            });
+        }
+    });
+});
 
 // ---------- ##### Database #####---------- //
 
