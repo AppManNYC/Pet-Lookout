@@ -1,0 +1,19 @@
+<% include partials/header %>
+
+<div class="container" style="margin: 0 auto">
+    <div class="jumbotron">
+        <div class="container">
+            <div style="margin: 0 auto; text-align: center">
+                <h1><%=lostPet.city%> , <%= lostPet.state %></h1>
+                <img src="<%= lostPet.image %>">
+            </div>
+            <p>Description: <%= lostPet.description %></p>
+            <p>Address: <%= lostPet.address %></p>
+            <p>City: <%= lostPet.city %></p>
+            <p>State: <%= lostPet.state %></p>
+            <p>Zip: <%= lostPet.zip %></p>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer %>

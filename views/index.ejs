@@ -1,51 +1,32 @@
 <% include partials/header %>
 
-        <nav>
-            <a href="#">Find a lost pet? Click Here!</a>
-        </nav>
-        <div class="container">
-            <h1>Pet Spotter</h1>
-            <div class="petSpotter">
-                <div class="petSpotterWrap">
-                    <div class="flexMe">
-                        <% for(let i = 0; i < lostPets.length; i++){ %>
-                            <div class="petSpotterPreview">
-                                <table>
-                                    <tr>
-                                        <td class="showTitle">Image:</td>
-                                        <td><img src= <%= lostPets[i]["image"] %> /></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="showTitle">Description:</td>
-                                        <td class="sizeUp"><%= lostPets[i]["description"] %></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="showTitle">Location:</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="showSubTitle sizeUp">Address: </td>
-                                        <td class="sizeUp"><%= lostPets[i]["location"]["address"] %></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="showSubTitle sizeUp">City: </td>
-                                        <td class="sizeUp"><%= lostPets[i]["location"]["city"] %></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="showSubTitle sizeUp">State: </td>
-                                        <td class="sizeUp"><%= lostPets[i]["location"]["state"] %></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="showSubTitle sizeUp">Zip: </td>
-                                        <td class="sizeUp"><%= lostPets[i]["location"]["zip"] %></td>
-                                    </tr>
-                                    <hr class="boundry">
-                                </table>
-                                <br>
-                            </div>
-                        <% }; %>
+<div class="container">
+    <header class="jumbotron">
+        <div class="container" style="margin: 0 auto; text-align: center">
+            <h1>Welcome To Pet Lookout!</h1>
+            <p>View EVERY Lost Pet from all over the U.S.A.</p>
+            <p>
+                <a class="btn btn-primary btn-large" href="/lostPets/new">Add New Lost Pet</a>
+            </p>
+        </div>
+    </header>
+
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% lostPets.forEach(function(lostPet){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= lostPet.image %>">
+                    <div class="caption">
+                        <h4><%= lostPet.city %></h4>
+                        <h4><%= lostPet.state %></h4>
                     </div>
+                    <p>
+                        <a href="/lostPets/<%= lostPet._id %>" class="btn btn-primary">More Info</a>
+                    </p>
                 </div>
             </div>
-        </div>
+        <% }); %>
+    </div>
+</div>
+
 <% include partials/footer %>

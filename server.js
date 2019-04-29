@@ -1,74 +1,72 @@
-// ------------- ##### Dependencies #####------------- //
-const express           =   require('express');
-const methodOverride    =   require('method-override');
-const mongoose          =   require ('mongoose');
-const app               =   express ();
-const db                =   mongoose.connection;
-const PetSpotterDB          =   require('./models/petSpotterDB.js');
+// ---------- ##### Declarations #####---------- //
+const   express     =       require("express"),
+        app         =       express(),
+        mongoose    =       require("mongoose"),
+        LostPets    =       require("./models/lostPet.js");
+
+const PORT = process.env.PORT || 3000;
 
 
-// ----------------- ##### Port #####----------------- //
-// Allow use of Heroku's port or your own local port, depending on the environment
-const PORT = process.env.PORT || 5000;
+// ---------- ##### Middleware #####---------- //
 
-// ----------------- ##### Database #####----------------- //
-// // How to connect to the database either via heroku or locally
-// const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/'+ `updateme`;
-//
-// // Connect to Mongo
-// mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
+// app.use( methodOverride("_method") );
+app.use( express.static("public") );
+app.use( express.urlencoded( {extended: true} ) );
 
-// // Error / success
-// db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
-// db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
-// db.on('disconnected', () => console.log('mongo disconnected'));
-// // open the connection to mongo
-// db.on('open' , ()=>{});
-
-
-// -------------- ##### Middleware #####-------------- //
-//use public folder for static assets
-app.use(express.static('public'));
-
-// populates req.body with parsed info from forms - if no data from forms will return an empty object {}
-app.use(express.urlencoded({ extended: false }));// extended: false - does not allow nested objects in query strings
-app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
-
-//use method override
-app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
-app.set("view engine", "ejs");
-
-
-// -------------- ##### Routes #####-------------- //
-//localhost:5000
 
 // ---------- ##### GET Routes #####---------- //
-
 app.get('/' , (req, res) => {
-    res.render("landing");
+    res.render("landing.ejs");
+});
+
+app.get("/lostPets/:index", (req, res) => {
+    LostPets.findById( req.params.index, (err, foundLostPet) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.render("show.ejs", {
+                lostPet: foundLostPet
+            });
+        }
+    });
 });
 
 app.get("/lostPets", (req, res) => {
-    res.render("index", {
-        lostPets: PetSpotterDB
+    LostPets.find( {}, (err, lostPets) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.render("index.ejs", {
+                lostPets: lostPets
+            });
+        }
     });
 });
 
 app.get("/lostPets/new", (req, res) => {
-    res.render("new");
+    res.render("new.ejs");
 });
+
 
 // ---------- ##### POST Routes #####---------- //
 
 app.post("/lostPets", (req, res) => {
-    PetSpotterDB.create(req.body, (err) => {
-        res.redirect("/lostPets");
+    LostPets.create(req.body, (err) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect("/lostPets");
+        }
     });
 });
 
 
+// ---------- ##### Database #####---------- //
 
-
+mongoose.connect("mongodb://localhost:27017/petLookoutDB", {useNewUrlParser: true});
+mongoose.connection.once("open", () => {
+    console.log("Connected to Mongo");
+});
 
 // -------------- ##### Listener #####-------------- //
 app.listen(PORT, () => console.log(`The Pet Spotter Server Is Operational On Port: ${PORT}`));
