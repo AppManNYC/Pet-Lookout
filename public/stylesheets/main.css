@@ -12,6 +12,15 @@ body {
     padding: 0;
 }
 
+.jumbotron{
+    background-color: #E8E8E8 !important;
+    font-family: 'Acme', sans-serif;
+}
+
+.jumbotron h1 {
+    color: #6944ff !important;
+    font-weight: bold;
+}
 .thumbnail img {
     width: 100%;
 }
