@@ -8,9 +8,7 @@ const   express         =       require("express"),
         LocalStrategy   =       require("passport-local"),
         LostPet         =       require("./models/lostPet"),
         Comment         =       require("./models/comment"),
-        User            =       require("./models/user"),
-        seedDB          =       require("./seeds");
-
+        User            =       require("./models/user");
 
 const   commentsController   =       require("./controllers/commentsController"),
         lostPetsController  =       require("./controllers/lostPetsController"),
@@ -29,7 +27,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
 app.set('view engine', 'ejs');
-//seedDB();
+
 
 // ---------- ##### Passport Configuration #####---------- //
 app.use(require("express-session")({
@@ -43,7 +41,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next){
+app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");

@@ -38,12 +38,12 @@ router.post("/login", passport.authenticate("local",
     {
         successRedirect: "/lostPets",
         failureRedirect: "/login"
-    }), function(req, res){
+    }), (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
     req.logout();
-    req.flash("success", "Logged you out!");
+    req.flash("success", "Logged out");
     res.redirect("/lostPets");
 });
 

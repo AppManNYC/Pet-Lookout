@@ -1,6 +1,6 @@
 # glowing-funicular
 
-TV-Show-Tracker
+Pet Lookout
 This app uses NodeJS, Express, HTML, CSS, JQuery, and Restful Routes. Users can lookup & add lost pets that they may find.
 
 Screenshots:

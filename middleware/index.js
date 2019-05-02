@@ -3,7 +3,7 @@ const Comment = require("../models/comment");
 
 let middlewareObj = {};
 
-middlewareObj.checkLostPetOwnership = (req, res, next) => {
+middlewareObj.lostPetCheck = (req, res, next) => {
     if(req.isAuthenticated()){
         LostPet.findById(req.params.id, (err, foundLostPet) =>{
             if(err){
@@ -24,7 +24,7 @@ middlewareObj.checkLostPetOwnership = (req, res, next) => {
     }
 };
 
-middlewareObj.checkCommentOwnership = (req, res, next) => {
+middlewareObj.commentCheck = (req, res, next) => {
     if(req.isAuthenticated()){
         Comment.findById(req.params.comment_id, (err, foundComment) => {
             if(err){
@@ -39,16 +39,16 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
             }
         });
     } else {
-        req.flash("error", "You forgot to log in.");
+        req.flash("error", "You still need to log in.");
         res.redirect("back");
     }
 }
 
-middlewareObj.isLoggedIn = (req, res, next) => {
+middlewareObj.loggedStatus = (req, res, next) => {
     if(req.isAuthenticated()){
         return next();
     }
-    req.flash("error", "You forgot to log in.");
+    req.flash("error", "You still need to log in.");
     res.redirect("/login");
 }
 

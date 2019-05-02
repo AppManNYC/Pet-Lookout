@@ -4,9 +4,7 @@
         <div class="col-md-3">
             <p class="lead">Pet Lookout</p>
             <div class="list-group">
-                <li class="list-group-item active">Info 1</li>
-                <li class="list-group-item">Info 2</li>
-                <li class="list-group-item">Info 3</li>
+                <li class="list-group-item active">Details</li>
             </div>
         </div>
         <div class="col-md-9">
@@ -14,15 +12,15 @@
                 <img class="img-responsive" src="<%= lostPet.image %>">
                 <div class="caption-full">
                     <h4 class="pull-right"><%=lostPet.nickName%></h4>
-                    <h4><a><%= lostPet.city %></a></h4>
+                    <h4><a><%= lostPet.city %>, <%= lostPet.state %></a></h4>
                     <p><%= lostPet.description %></p>
                     <p>
                         <em>Submitted By <%= lostPet.author.username %></em>
                     </p>
                     <% if(currentUser && lostPet.author.id.equals(currentUser._id)){ %>
-                        <a class="btn btn-xs btn-warning" href="/lostPets/<%= lostPet._id %>/edit">Edit</a>
+                        <a class="btn btn-xs" href="/lostPets/<%= lostPet._id %>/edit">Edit</a>
                         <form id="delete-form" action="/lostPets/<%= lostPet._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-xs btn-danger">Delete</button>
+                            <button class="btn btn-xs">Delete</button>
                         </form>
                     <% }%>
                 </div>
@@ -32,19 +30,19 @@
                     <a class="btn btn-success" href="/lostPets/<%= lostPet._id %>/comments/new">Add New Comment</a>
                 </div>
                 <hr>
-                <% lostPet.comments.forEach(function(comment){ %>
+                <% lostPet.comments.forEach((comment) => { %>
                     <div class="row">
                         <div class="col-md-12">
-                            <strong><%= comment.author.username %></strong>
-                            <span class="pull-right">10 days ago</span>
+                            <%= comment.author.username %>
+                            <span class="pull-right">4 days ago</span>
                             <p>
                                 <%= comment.text %>
                             </p>
                             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                            <a class="btn btn-xs btn-warning"
+                            <a class="btn btn-xs"
                                href="/lostPets/<%=lostPet._id %>/comments/<%=comment._id %>/edit">Edit</a>
                             <form id="delete-form" action="/lostPets/<%=lostPet._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
-                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                <input type="submit" class="btn btn-xs" value="Delete">
                             </form>
                             <% } %>
                         </div>

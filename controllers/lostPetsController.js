@@ -4,7 +4,7 @@ const LostPet = require("../models/lostPet");
 const middleware = require("../middleware");
 
 router.get("/", (req, res) => {
-    LostPet.find({}, function(err, allLostPets){
+    LostPet.find({}, (err, allLostPets) => {
         if(err){
             console.log(err);
         } else {
@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", middleware.isLoggedIn, (req, res) =>{
+router.post("/", middleware.loggedStatus, (req, res) =>{
     let nickName = req.body.nickName;
     let image = req.body.image;
     let address = req.body.address;
@@ -37,7 +37,7 @@ router.post("/", middleware.isLoggedIn, (req, res) =>{
 });
 
 
-router.get("/new", middleware.isLoggedIn, (req, res) => {
+router.get("/new", middleware.loggedStatus, (req, res) => {
     res.render("lostPets/new");
 });
 
@@ -53,13 +53,13 @@ router.get("/:id", (req, res) => {
 });
 
 
-router.get("/:id/edit", middleware.checkLostPetOwnership, (req, res) =>{
-    LostPet.findById(req.params.id, function(err, foundLostPet){
+router.get("/:id/edit", middleware.lostPetCheck, (req, res) =>{
+    LostPet.findById(req.params.id, (err, foundLostPet) => {
         res.render("lostPets/edit", {lostPet: foundLostPet});
     });
 });
 
-router.put("/:id",middleware.checkLostPetOwnership, (req, res) => {
+router.put("/:id",middleware.lostPetCheck, (req, res) => {
     LostPet.findByIdAndUpdate(req.params.id, req.body.lostPet, (err, updatedLostPet) => {
         if(err){
             res.redirect("/lostPets");
@@ -69,13 +69,9 @@ router.put("/:id",middleware.checkLostPetOwnership, (req, res) => {
     });
 });
 
-router.delete("/:id",middleware.checkLostPetOwnership, (req, res) => {
+router.delete("/:id",middleware.lostPetCheck, (req, res) => {
     LostPet.findByIdAndRemove(req.params.id, (err) => {
-        if(err){
-            res.redirect("/lostPets");
-        } else {
-            res.redirect("/lostPets");
-        }
+        res.redirect("/lostPets");
     });
 });
 
