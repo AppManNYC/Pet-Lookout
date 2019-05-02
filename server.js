@@ -61,8 +61,8 @@ app.use("/lostPets/:id/comments", commentsController);
 // mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
 
 // ---------- ##### Database #####---------- //
-const mongoURI = process.env.MONGODB_URI
-mongoose.connect("mongodb://localhost:27017/petLookoutDB", {useNewUrlParser: true});
+const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/petLookoutDB";
+mongoose.connect(mongoURI, {useNewUrlParser: true});
 mongoose.connection.once("open", () => {
     console.log("Connected to Mongo");
 });
