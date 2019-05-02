@@ -55,8 +55,13 @@ app.use("/lostPets", lostPetsController);
 app.use("/lostPets/:id/comments", commentsController);
 
 
-// ---------- ##### Database #####---------- //
+// const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/'+ `YOUR DATABASE NAME`;
+//
+// // Connect to Mongo
+// mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
 
+// ---------- ##### Database #####---------- //
+const mongoURI = process.env.MONGODB_URI
 mongoose.connect("mongodb://localhost:27017/petLookoutDB", {useNewUrlParser: true});
 mongoose.connection.once("open", () => {
     console.log("Connected to Mongo");

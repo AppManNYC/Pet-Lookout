@@ -43,15 +43,15 @@ N
 controllers/indexController.js,0/8/084a0a07890d16f51f371c25f1a2477025aefdf8
 C
 middleware/index.js,a/e/aefec6fc71933eb0005d4ef5eb96a274b40c5d2a
-G
-controllers/password.js,f/2/f2ce27acfd057e91d3c0397e36a96581d99786bc
-C
-controllers/user.js,9/3/93e97096bbeb10b30c0c53947364edd9141014a4
-C
-public/js/script.js,a/4/a415e66bfdba45d232667d640b13492fa370a26f
 N
 public/stylesheets/landing.css,1/5/159e2ffb254d8556d331e76a9e9c0bc3646adc5a
 >
 models/user.js,5/8/58952233992370efa7ea98b3ec60c43d2d227d89
 Q
 !controllers/lostPetsController.js,3/3/33908b6692980785366b6e6981c1d5db548e4df6
+O
+views/partials/customFooter.ejs,2/f/2f4de115499295a196e0b161d0b06f7b9004c23d
+G
+views/lostPets/edit.ejs,7/9/79810603a4cde25837a6386b0df1606ab9019dc3
+G
+views/comments/edit.ejs,6/d/6dad0b3d58313add5293f9ff3775680016dd6f1f
