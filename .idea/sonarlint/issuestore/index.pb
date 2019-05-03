@@ -13,8 +13,6 @@ I
 views/partials/header.ejs,a/6/a6563f0102bbd243ffc487f3f3013a1652bf3ac5
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-8
-seeds.js,4/d/4d1adcac626c39c4505e3b476dfe9076aeba38bd
 F
 views/comments/new.ejs,1/a/1a973c214ab0eb296e347f814a4fb182da6a9a63
 A
@@ -55,3 +53,10 @@ G
 views/lostPets/edit.ejs,7/9/79810603a4cde25837a6386b0df1606ab9019dc3
 G
 views/comments/edit.ejs,6/d/6dad0b3d58313add5293f9ff3775680016dd6f1f
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+N
+views/partials/statusCheck.ejs,2/9/291bf81dafe49bdbbf66ffa652f4a7947a01d1a7
+H
+views/partials/check.ejs,d/b/db4f705d1025ffe3ae2635759bc29ce8e974d86a

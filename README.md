@@ -16,3 +16,12 @@ SHOW        /lostPets/:index        GET         Displays a single record of lost
 EDIT        /lostPets/:index/edit   GET
 UPDATE      /lostPets/:index        PUT
 DESTROY     /lostPets/:index        DELETE
+
+
+
+
+Consulted:
+
+    1) "Express in Action" by Evan M. Hahn
+    
+    2) Youtube video https://youtu.be/5XL2Lwb7rds
